@@ -6,8 +6,6 @@
       color="primary"
       dark
     >
-<!--      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />-->
-
       <v-toolbar-title
         style="width: 350px"
       >

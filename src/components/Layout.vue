@@ -82,6 +82,9 @@
         <v-btn href="/blog">
           <span>Blog</span>
         </v-btn>
+        <v-btn href="/contact">
+          <span>Contact</span>
+        </v-btn>
       </v-bottom-navigation>
     </v-content>
       <router-view/>

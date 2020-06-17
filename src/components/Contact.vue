@@ -1,86 +1,71 @@
 <template>
-  <div>
-    <form class="form" @submit.prevent="onSubmit">
-      <div class="input">
-        <label for="email">Email</label>
-        <input type="email" id="email" @input="$v.email.$touch()" v-model.trim="email"/>
-    </div>
-    <div class="input">
-    <label for="firstName">First Name</label>
-    <input
-        type="text"
-        id="firstName"
-        v-model.trim="firstName"
-        @input="$v.firstName.$touch()"
-    />
-    </div>
-    <div class="input">
-    <label for="lastName">Last Name</label>
-    <input
-        type="text"
-        id="lastName"
-        v-model.trim="lastName"
-        @input="$v.lastName.$touch()"
-    />
-    </div>
-    <div class="input">
-    <label for="password">Password</label>
-    <input
-        type="password"
-        id="password"
-        v-model.trim="password"
-        @input="$v.password.$touch()"
-    />
-    </div>
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-  
+  <form id="app" @submit="checkForm" action="https://vuejs.org/"method="post">
+  <p v-if="errors.length" class="contact">
+    <b>Please correct the following error(s):</b>
+    <ul>
+      <li v-for="error in errors" class="errors">{{ error }}</li>
+    </ul>
+  </p>
+  <p class="contact">
+    <label for="name">Name</label>
+    <input id="name" v-model="name" type="text" name="name" class="input_field">
+  </p>
+  <p class="contact">
+    <label for="age">Age</label>
+    <input id="age" v-model="age" type="number" name="age" min="0" class="input_field">
+  </p>
+  <p class="contact">
+    <label for="movie">Favorite Movie</label>
+    <select id="movie" v-model="movie" name="movie" class="input_field">
+      <option>Star Wars</option>
+      <option>Vanilla Sky</option>
+      <option>Atomic Blonde</option>
+    </select>
+  </p>
+  <p class="contact">
+    <input type="submit" value="Submit">
+  </p>
+</form>
 </template>
 <style>
-  .form {
-    display: inline-block;
-    text-align: center;
-    width: 49%;
-  }
-  .validators {
-    display: inline-block;
-    width: 49%;
-    text-align: center;
-    vertical-align: top;
-  }
-  .input {
-    padding: 5px;
-  }
+    .input_field{
+      border:1px solid black;
+    }
+    .errors{
+      color:red;
+    }
+    .contact {
+      margin-left: 20%;
+    }
 </style>
 <script>
-import { required, email } from "vuelidate/lib/validators";
   export default {
     data() {
       return {
-        email: "",
-        password: "",
-        firstName: "",
-        lastName: ""
+        errors: [],
+        name: null,
+        age: null,
+        movie: null
       };
     },
-    methods: {
-      onSubmit() {}
-    },
-     validations: {
-        email: {
-        required,
-        email
-        },
-        firstName: {
-        required
-        },
-        lastName: {
-        required
-        },
-        password: {
-        required
-        }
-    },
-  };
+  methods:{
+    checkForm: function (e) {
+      if (this.name && this.age) {
+        return true;
+      }
+
+      this.errors = [];
+
+      if (!this.name) {
+        this.errors.push('Name required.');
+      }
+      if (!this.age) {
+        this.errors.push('Age required.');
+      }
+
+      e.preventDefault();
+    }
+  },
+}
+
 </script>

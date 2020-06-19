@@ -1,5 +1,5 @@
 <template>
-  <form id="app" @submit="checkForm" action="https://vuejs.org/"method="post">
+  <form id="app" @submit="checkForm" action="https://vuejs.org/" method="post">
   <p v-if="errors.length" class="contact">
     <b>Please correct the following error(s):</b>
     <ul>
@@ -14,6 +14,8 @@
     <label for="age">Age</label>
     <input id="age" v-model="age" type="number" name="age" min="0" class="input_field">
   </p>
+  <p class="contact">
+  </p>    
   <p class="contact">
     <label for="movie">Favorite Movie</label>
     <select id="movie" v-model="movie" name="movie" class="input_field">

@@ -4,23 +4,23 @@
         <v-row align="center">
             <v-col cols="4">
                 <v-text-field
+                v-model="item_name"
                 value="Shirt/Blouse"
                 label="Item Name"
-                disabled
             ></v-text-field>
             </v-col>
             <v-col cols="4">
               <v-select
                   :items="countries"
                   v-model="countrySelect"
-                  v-on:change="country_change()" 
                   label="Select Country"
                   single-line
+                  return-object
               >
               </v-select>
             </v-col>
               <v-col cols="4">
-                <v-btn>Search</v-btn>
+                <v-btn @click="country_change">Search</v-btn>
             </v-col>
         </v-row>
     </v-container>
@@ -60,8 +60,20 @@ computed: {
 },
 methods:{
     country_change: function (e) {
-      alert("change");
-      e.preventDefault();
+      var selected_value=this.countrySelect;
+      var item_name = this.item_name;
+      alert("Text is "+item_name+" and select value is "+selected_value);
+      var base_url = window.location.origin;
+      this.axios.post(base_url+'/search', {
+                    item_name: item_name,
+                    selected_value: selected_value
+                })
+                .then(function (response) {
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
     }
   },
 }
